@@ -1,5 +1,16 @@
 # AWS CLI Cheatsheet
 
+- [General AWS CLI Information](#general-aws-cli-information)
+- [EC2 (Elastic Compute Cloud)](#ec2-elastic-compute-cloud)
+- [S3 (Simple Storage Service)](#s3-simple-storage-service)
+- [IAM (Identity and Access Management)](#iam-identity-and-access-management)
+- [CloudWatch (Monitoring and Logging)](#cloudwatch-monitoring-and-logging)
+- [CloudFormation (Infrastructure as Code)](#cloudformation-infrastructure-as-code)
+- [Lambda (Serverless Functions)](#lambda-serverless-functions)
+- [ECS (Elastic Container Service)](#ecs-elastic-container-service)
+- [RDS (Relational Database Service)](#rds-relational-database-service)
+- [Miscellaneous Useful AWS Commands](#miscellaneous-useful-aws-commands)
+
 ## General AWS CLI Information
 - **`aws configure`**: Configures AWS CLI with your AWS credentials (Access Key, Secret Key, Region).
   - Example: `aws configure`
