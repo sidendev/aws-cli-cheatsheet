@@ -148,5 +148,109 @@
   - Example: `aws ecs describe-tasks --cluster my-cluster --tasks task-id`
 
 ## RDS (Relational Database Service)
-- **`aws rds describe-db-instances`**: Lists
+- **`aws rds describe-db-instances`**: Lists all RDS instances.
+  - Example: `aws rds describe-db-instances`
 
+- **`aws rds create-db-instance`**: Creates a new RDS instance.
+  - Example: 
+    ```bash
+    aws rds create-db-instance --db-instance-identifier mydbinstance --db-instance-class db.t2.micro --engine mysql --allocated-storage 20 --master-username admin --master-user-password password
+    ```
+
+- **`aws rds delete-db-instance`**: Deletes an RDS instance.
+  - Example: `aws rds delete-db-instance --db-instance-identifier mydbinstance --skip-final-snapshot`
+
+## Networking (VPC, Route53, and ELB)
+
+### VPC (Virtual Private Cloud)
+- **`aws ec2 describe-vpcs`**: Lists all VPCs in your AWS account.
+  - Example: `aws ec2 describe-vpcs`
+  
+- **`aws ec2 create-vpc`**: Creates a new VPC.
+  - Example: `aws ec2 create-vpc --cidr-block 10.0.0.0/16`
+  
+- **`aws ec2 delete-vpc`**: Deletes a specified VPC.
+  - Example: `aws ec2 delete-vpc --vpc-id vpc-12345678`
+
+- **`aws ec2 describe-subnets`**: Lists all subnets in a specific VPC.
+  - Example: `aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-12345678"`
+
+### Route53 (DNS)
+- **`aws route53 list-hosted-zones`**: Lists all hosted zones in your AWS account.
+  - Example: `aws route53 list-hosted-zones`
+  
+- **`aws route53 create-hosted-zone`**: Creates a new hosted zone.
+  - Example: `aws route53 create-hosted-zone --name example.com --caller-reference unique-string`
+  
+- **`aws route53 delete-hosted-zone`**: Deletes a hosted zone.
+  - Example: `aws route53 delete-hosted-zone --id Z3M3LMPEXAMPLE`
+
+### ELB (Elastic Load Balancing)
+- **`aws elb describe-load-balancers`**: Lists all load balancers.
+  - Example: `aws elb describe-load-balancers`
+  
+- **`aws elb create-load-balancer`**: Creates a new load balancer.
+  - Example: `aws elb create-load-balancer --load-balancer-name my-lb --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80 --availability-zones us-east-1a`
+  
+- **`aws elb delete-load-balancer`**: Deletes a load balancer.
+  - Example: `aws elb delete-load-balancer --load-balancer-name my-lb`
+
+## Systems Manager (SSM)
+- **`aws ssm send-command`**: Sends a command to one or more instances.
+  - Example: 
+    ```bash
+    aws ssm send-command --instance-ids "i-1234567890abcdef0" --document-name "AWS-RunShellScript" --comment "IP config" --parameters commands=ifconfig
+    ```
+  - Note: This allows you to run commands remotely on EC2 instances without SSH access.
+
+- **`aws ssm describe-instance-information`**: Lists all instances that have SSM installed and running.
+  - Example: `aws ssm describe-instance-information`
+
+- **`aws ssm get-parameter`**: Retrieves the value of a parameter stored in SSM.
+  - Example: `aws ssm get-parameter --name "my-parameter-name"`
+
+## Step Functions (Serverless Orchestration)
+- **`aws stepfunctions list-state-machines`**: Lists all state machines.
+  - Example: `aws stepfunctions list-state-machines`
+  
+- **`aws stepfunctions start-execution`**: Starts a new execution of a state machine.
+  - Example: `aws stepfunctions start-execution --state-machine-arn arn:aws:states:us-east-1:123456789012:stateMachine:my-state-machine`
+  
+- **`aws stepfunctions describe-execution`**: Describes a running or completed execution.
+  - Example: `aws stepfunctions describe-execution --execution-arn arn:aws:states:us-east-1:123456789012:execution:my-state-machine:execution-name`
+
+## Advanced EC2 Instance Management
+- **`aws ec2 create-snapshot`**: Creates a snapshot of an EBS volume.
+  - Example: `aws ec2 create-snapshot --volume-id vol-12345678 --description "My backup snapshot"`
+  
+- **`aws ec2 modify-instance-attribute`**: Modifies the attribute of an instance (e.g., instance type, termination protection).
+  - Example: `aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --instance-type "t2.micro"`
+  
+- **`aws ec2 describe-spot-instance-requests`**: Lists all Spot Instance requests.
+  - Example: `aws ec2 describe-spot-instance-requests`
+
+## Autoscaling (Scaling Your Infrastructure)
+- **`aws autoscaling describe-auto-scaling-groups`**: Lists all Auto Scaling groups.
+  - Example: `aws autoscaling describe-auto-scaling-groups`
+  
+- **`aws autoscaling create-auto-scaling-group`**: Creates a new Auto Scaling group.
+  - Example: 
+    ```bash
+    aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-configuration-name my-launch-config --min-size 1 --max-size 3 --desired-capacity 2 --vpc-zone-identifier subnet-12345678
+    ```
+
+- **`aws autoscaling update-auto-scaling-group`**: Updates the settings of an Auto Scaling group.
+  - Example: 
+    ```bash
+    aws autoscaling update-auto-scaling-group --auto-scaling-group-name my-asg --min-size 2 --max-size 5
+    ```
+
+## Miscellaneous Useful AWS Commands
+- **`aws sts get-caller-identity`**: Displays the AWS account and IAM role details associated with the current credentials.
+  - Example: `aws sts get-caller-identity`
+
+- **`aws ec2 describe-regions`**: Lists all AWS regions.
+  - Example: `aws ec2 describe-regions`
+
+- **`aws configure list`**: Displays the current CLI configuration settings (including credentials).
+  - Example: `aws configure list`
