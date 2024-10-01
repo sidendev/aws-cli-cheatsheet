@@ -1,5 +1,6 @@
 # AWS CLI Cheatsheet
 
+## Table of Contents
 - [General AWS CLI Information](#general-aws-cli-information)
 - [EC2 (Elastic Compute Cloud)](#ec2-elastic-compute-cloud)
 - [S3 (Simple Storage Service)](#s3-simple-storage-service)
@@ -9,7 +10,14 @@
 - [Lambda (Serverless Functions)](#lambda-serverless-functions)
 - [ECS (Elastic Container Service)](#ecs-elastic-container-service)
 - [RDS (Relational Database Service)](#rds-relational-database-service)
+- [Networking (VPC, Route53, and ELB)](#networking-vpc-route53-and-elb)
+- [Systems Manager (SSM)](#systems-manager-ssm)
+- [Step Functions (Serverless Orchestration)](#step-functions-serverless-orchestration)
+- [Advanced EC2 Management](#advanced-ec2-instance-management)
+- [Autoscaling](#autoscaling-scaling-your-infrastructure)
 - [Miscellaneous Useful AWS Commands](#miscellaneous-useful-aws-commands)
+
+---
 
 ## General AWS CLI Information
 - **`aws configure`**: Configures AWS CLI with your AWS credentials (Access Key, Secret Key, Region).
@@ -53,6 +61,16 @@
 - **`aws s3 rm`**: Deletes a file or folder from an S3 bucket.
   - Example: `aws s3 rm s3://my-bucket-name/myfile.txt`
   - Example: `aws s3 rm s3://my-bucket-name/ --recursive` (delete all files in the bucket)
+
+- **`aws s3 presign`**: Generates a pre-signed URL for an S3 object.
+  - Example: `aws s3 presign s3://my-bucket/my-object --expires-in 300`
+  - Note: Useful for giving temporary access to S3 objects.
+
+- **`aws s3api put-bucket-encryption`**: Enables server-side encryption for an S3 bucket.
+  - Example: 
+    ```bash
+    aws s3api put-bucket-encryption --bucket my-bucket --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+    ```
 
 ## IAM (Identity and Access Management)
 - **`aws iam create-user`**: Creates a new IAM user.
@@ -130,24 +148,5 @@
   - Example: `aws ecs describe-tasks --cluster my-cluster --tasks task-id`
 
 ## RDS (Relational Database Service)
-- **`aws rds describe-db-instances`**: Lists all RDS instances.
-  - Example: `aws rds describe-db-instances`
+- **`aws rds describe-db-instances`**: Lists
 
-- **`aws rds create-db-instance`**: Creates a new RDS instance.
-  - Example: 
-    ```bash
-    aws rds create-db-instance --db-instance-identifier mydbinstance --db-instance-class db.t2.micro --engine mysql --allocated-storage 20 --master-username admin --master-user-password password
-    ```
-
-- **`aws rds delete-db-instance`**: Deletes an RDS instance.
-  - Example: `aws rds delete-db-instance --db-instance-identifier mydbinstance --skip-final-snapshot`
-
-## Miscellaneous Useful AWS Commands
-- **`aws sts get-caller-identity`**: Displays the AWS account and IAM role details associated with the current credentials.
-  - Example: `aws sts get-caller-identity`
-
-- **`aws ec2 describe-regions`**: Lists all AWS regions.
-  - Example: `aws ec2 describe-regions`
-
-- **`aws configure list`**: Displays the current CLI configuration settings (including credentials).
-  - Example: `aws configure list`
